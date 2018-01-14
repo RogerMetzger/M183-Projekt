@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DatabaseFirst.MiniBlogModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="DatabaseFirstMiniBlogModelStoreContainer">
+    <EntitySet Name="Comments" EntityType="DatabaseFirst.MiniBlogModel.Store.Comments" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Posts" EntityType="DatabaseFirst.MiniBlogModel.Store.Posts" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Tokens" EntityType="DatabaseFirst.MiniBlogModel.Store.Tokens" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users" EntityType="DatabaseFirst.MiniBlogModel.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserLogs" EntityType="DatabaseFirst.MiniBlogModel.Store.UserLogs" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Userlogins" EntityType="DatabaseFirst.MiniBlogModel.Store.Userlogins" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="CommentPost" Association="DatabaseFirst.MiniBlogModel.Store.CommentPost">
+      <End Role="Comment" EntitySet="Comments" />
+      <End Role="Post" EntitySet="Posts" />
+    </AssociationSet>
+    <AssociationSet Name="CommentUser" Association="DatabaseFirst.MiniBlogModel.Store.CommentUser">
+      <End Role="Comment" EntitySet="Comments" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="PostUser" Association="DatabaseFirst.MiniBlogModel.Store.PostUser">
+      <End Role="Post" EntitySet="Posts" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="TokenUser" Association="DatabaseFirst.MiniBlogModel.Store.TokenUser">
+      <End Role="Token" EntitySet="Tokens" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="UserUserlogin" Association="DatabaseFirst.MiniBlogModel.Store.UserUserlogin">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Userlogin" EntitySet="Userlogins" />
+    </AssociationSet>
+    <AssociationSet Name="UserUserLog" Association="DatabaseFirst.MiniBlogModel.Store.UserUserLog">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserLog" EntitySet="UserLogs" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Comments">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PostId" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="Commet" Type="varchar(max)" Nullable="true" />
+    <Property Name="CreatedOn" Type="datetime" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Posts">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="Title" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Description" Type="varchar" Nullable="false" MaxLength="500" />
+    <Property Name="Content" Type="varchar(max)" Nullable="false" />
+    <Property Name="CreatedOn" Type="datetime" Nullable="true" />
+    <Property Name="ModifiedOn" Type="datetime" Nullable="true" />
+    <Property Name="DeletedOn" Type="datetime" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Tokens">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Token1" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="Expiry" Type="datetime" Nullable="false" />
+    <Property Name="DeletedOn" Type="datetime" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Password" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Firstname" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Familyname" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Mobilephonenumber" Type="varchar" Nullable="true" MaxLength="50" />
+    <Property Name="Role" Type="varchar" Nullable="true" MaxLength="20" />
+    <Property Name="Status" Type="varchar" Nullable="true" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="UserLogs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="Action" Type="varchar" Nullable="true" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="Userlogins">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="IP" Type="varchar" Nullable="true" MaxLength="50" />
+    <Property Name="SessionId" Type="varchar" Nullable="true" MaxLength="50" />
+    <Property Name="CreatedOn" Type="datetime" Nullable="true" />
+    <Property Name="ModifiedOn" Type="datetime" Nullable="true" />
+    <Property Name="DeletedOn" Type="datetime" Nullable="true" />
+  </EntityType>
+  <Association Name="CommentPost">
+    <End Role="Comment" Type="DatabaseFirst.MiniBlogModel.Store.Comments" Multiplicity="*" />
+    <End Role="Post" Type="DatabaseFirst.MiniBlogModel.Store.Posts" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Post">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="PostId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CommentUser">
+    <End Role="Comment" Type="DatabaseFirst.MiniBlogModel.Store.Comments" Multiplicity="*" />
+    <End Role="User" Type="DatabaseFirst.MiniBlogModel.Store.Users" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PostUser">
+    <End Role="Post" Type="DatabaseFirst.MiniBlogModel.Store.Posts" Multiplicity="*" />
+    <End Role="User" Type="DatabaseFirst.MiniBlogModel.Store.Users" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Post">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TokenUser">
+    <End Role="Token" Type="DatabaseFirst.MiniBlogModel.Store.Tokens" Multiplicity="*" />
+    <End Role="User" Type="DatabaseFirst.MiniBlogModel.Store.Users" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Token">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserUserlogin">
+    <End Role="User" Type="DatabaseFirst.MiniBlogModel.Store.Users" Multiplicity="1" />
+    <End Role="Userlogin" Type="DatabaseFirst.MiniBlogModel.Store.Userlogins" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Userlogin">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserUserLog">
+    <End Role="User" Type="DatabaseFirst.MiniBlogModel.Store.Users" Multiplicity="1" />
+    <End Role="UserLog" Type="DatabaseFirst.MiniBlogModel.Store.UserLogs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserLog">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

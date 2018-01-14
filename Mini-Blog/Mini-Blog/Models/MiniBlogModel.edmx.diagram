@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5134c63a719243eb88dfd5477c4cdada" Name="Diagram1">
+        <EntityTypeShape EntityType="DatabaseFirst.MiniBlogModel.Comment" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseFirst.MiniBlogModel.Post" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseFirst.MiniBlogModel.Token" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseFirst.MiniBlogModel.User" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseFirst.MiniBlogModel.UserLog" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseFirst.MiniBlogModel.Userlogin" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="DatabaseFirst.MiniBlogModel.CommentPost" />
+        <AssociationConnector Association="DatabaseFirst.MiniBlogModel.CommentUser" />
+        <AssociationConnector Association="DatabaseFirst.MiniBlogModel.PostUser" />
+        <AssociationConnector Association="DatabaseFirst.MiniBlogModel.TokenUser" />
+        <AssociationConnector Association="DatabaseFirst.MiniBlogModel.UserUserlogin" />
+        <AssociationConnector Association="DatabaseFirst.MiniBlogModel.UserUserLog" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
