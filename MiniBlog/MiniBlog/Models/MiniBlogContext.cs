@@ -19,7 +19,6 @@ namespace MiniBlog.Models
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
-
         }
 
         public virtual DbSet<Comment> Comments { get; set; }
