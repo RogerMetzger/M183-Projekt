@@ -8,6 +8,14 @@ using MiniBlog.Common;
 using MiniBlog.Repository;
 using MiniBlog.ViewModels;
 
+// Fragen:
+// 1) RFC2899 hält den Public Key Kryptographie Standard ein. Ebenso ist eine genormte Funktion. 
+//    Der Hauptgrund ist, dass es relativ einfach aufzusetzten ist und von National Institut of Standards and Technologie empfohlen wurde.
+// 2) Session ID theft & Eavesdropping
+// 3) In dem man die Session ID aus den Cookies klaut kann man dem Server vorgaukeln, dass man eine andere Person ist.
+//    In dem man die IP Adresse in der Db speichert kann man beim erneuten Login überprüfen, ob die immernoch übereinstimmen.
+
+
 namespace MiniBlog.Controllers
 {
     public class HomeController : Controller
