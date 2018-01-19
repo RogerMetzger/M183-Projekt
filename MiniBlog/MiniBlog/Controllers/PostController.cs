@@ -20,11 +20,12 @@ namespace MiniBlog.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddComment(int id, string comment)
+        public ActionResult AddComment(int postid, string comment)
         {
-            db.Posts.First(p => p.Id == id).Comment.Add(new Comment() { Commet = comment, PostId = id, UserId = 1 }); // Todo add userId from Session
+            db.Posts.First(p => p.Id == postid).Comment.Add(new Comment() { Commet = comment, PostId = postid, UserId = 1 });
+            db.SaveChanges();
 
-            return View("Index", new PostViewModel(db.Posts.FirstOrDefault(p => p.Id == id)));
+            return View("Index", new PostViewModel(db.Posts.FirstOrDefault(p => p.Id == postid)));
         }
     }
 }
