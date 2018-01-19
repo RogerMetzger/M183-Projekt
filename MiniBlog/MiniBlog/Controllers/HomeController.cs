@@ -5,6 +5,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MiniBlog.Common;
+using MiniBlog.Repository;
+using MiniBlog.ViewModels;
 
 namespace MiniBlog.Controllers
 {
@@ -12,11 +14,12 @@ namespace MiniBlog.Controllers
     {
         public MiniBlogContext db = new MiniBlogContext();
 
-
         // GET: Home
         public ActionResult Index()
         {
-            return View();
+            PostRepository postRepository = new PostRepository(db);
+            IEnumerable<Post> posts = postRepository.GetPublicPosts();
+            return View(new HomeViewModel(posts));
         }
 
         public ActionResult Seed()
