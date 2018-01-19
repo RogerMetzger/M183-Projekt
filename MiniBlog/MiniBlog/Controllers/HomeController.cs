@@ -30,7 +30,7 @@ namespace MiniBlog.Controllers
                 Password = PasswordUtilities.HashPassword("12345", 10000),
                 Firstname = "Roger",
                 Familyname = "Metzger",
-                Mobilephonenumber = "0774893231",
+                Mobilephonenumber = "00774893231",
                 Role = "1",
                 Status = "aktiv"
             };

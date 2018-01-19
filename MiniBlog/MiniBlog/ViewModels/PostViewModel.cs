@@ -26,6 +26,16 @@ namespace MiniBlog.ViewModels
                 return this.comments;
             }
         }
-        public Post Post { get; set; }
+        public Post Post
+        {
+            get
+            {
+                return this.post;
+            }
+            set
+            {
+                this.post = value;
+            }
+        }
     }
 }

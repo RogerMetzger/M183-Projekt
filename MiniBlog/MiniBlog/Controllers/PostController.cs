@@ -1,4 +1,5 @@
 ﻿using MiniBlog.Models;
+using MiniBlog.Repository;
 using MiniBlog.ViewModels;
 using System;
 using System.Collections.Generic;
