@@ -7,7 +7,7 @@ using System.Web;
 
 namespace MiniBlog.Models
 {
-    public sealed class UserLog
+    public class UserLog
     {
         public UserLog(string action, User user)
         {
@@ -21,6 +21,6 @@ namespace MiniBlog.Models
         public string Action { get; set; }
 
         [ForeignKey("UserId")]
-        public User User { get; set; }
+        public virtual User User { get; set; }
     }
 }

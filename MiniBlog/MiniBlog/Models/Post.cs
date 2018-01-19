@@ -7,7 +7,7 @@ using System.Web;
 
 namespace MiniBlog.Models
 {
-    public sealed class Post
+    public class Post
     {
         public Post()
         {
@@ -26,7 +26,7 @@ namespace MiniBlog.Models
         public DateTime? DeletedOn { get; set; }
 
         [ForeignKey("UserId")]
-        public User User { get; set; }
+        public virtual User User { get; set; }
         public ICollection<Comment> Comment { get; set; }
     }
 }
