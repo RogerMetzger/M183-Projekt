@@ -21,7 +21,7 @@
     }
     <h3>Add Comment</h3>
     <section id="commentForm">
-        @using (Html.BeginForm("AddComment", "DetailedPost", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        @using (Html.BeginForm("AddComment", "Post", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
         {
             @Html.AntiForgeryToken()
             <hr />

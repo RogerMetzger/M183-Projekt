@@ -62,7 +62,7 @@ namespace MiniBlog.Controllers
         }
 
         [HttpPost]
-        public ActionResult TokenLogin(TokenViewModel model)
+        public ActionResult Token(TokenViewModel model)
         {
             TokenRepository tokenRepository = new TokenRepository(db);
             if (tokenRepository.CheckToken(model.Token, model.UserId))

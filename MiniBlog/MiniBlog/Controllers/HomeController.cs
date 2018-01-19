@@ -87,5 +87,15 @@ namespace MiniBlog.Controllers
             db.SaveChanges();
             return new HttpStatusCodeResult(200);
         }
+
+        public ActionResult About()
+        {
+            return View();
+        }
+
+        public ActionResult Contact()
+        {
+            return View();
+        }
     }
 }
