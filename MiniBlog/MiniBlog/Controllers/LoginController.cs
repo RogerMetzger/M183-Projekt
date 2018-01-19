@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.SessionState;
 using Microsoft.ApplicationInsights.Web;
 using MiniBlog.Common;
 using MiniBlog.Models;
@@ -67,11 +68,17 @@ namespace MiniBlog.Controllers
             TokenRepository tokenRepository = new TokenRepository(db);
             if (tokenRepository.CheckToken(model.Token, model.UserId))
             {
+                Session["a_name_for_our_session_thant_cant_be_exposed"] = generateID();
+
                 return View("../Home/Index");
             }
             ViewBag.Status = "invalid token";
             ModelState.AddModelError("Token", "Token is invalid");
             return View("Token", model);
         }
-    }
+
+        private string generateID()
+        {
+            return Guid.NewGuid().ToString("N");
+        }
 }
