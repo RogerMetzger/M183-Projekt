@@ -19,6 +19,6 @@ namespace MiniBlog.Models
         [ForeignKey("UserId")]
         public virtual User User { get; set; }
         [ForeignKey("PostId")]
-        public virtual Post Posts { get; set; }
+        public virtual Post Post { get; set; }
     }
 }

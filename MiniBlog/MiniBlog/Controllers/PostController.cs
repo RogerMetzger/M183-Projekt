@@ -22,7 +22,7 @@ namespace MiniBlog.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddComment(int id, string comment)
         {
-            db.Posts.FirstOrDefault(p => p.Id == id).Comment.Add(new Comment() { Commet = comment, PostId = id, UserId = 1 }); // Todo add userId from Session
+            db.Posts.First(p => p.Id == id).Comment.Add(new Comment() { Commet = comment, PostId = id, UserId = 1 }); // Todo add userId from Session
 
             return View("Index", new PostViewModel(db.Posts.FirstOrDefault(p => p.Id == id)));
         }
