@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using MiniBlog.Models;
+using MiniBlog.Common;
 
 namespace MiniBlog.Controllers
 {
@@ -24,7 +24,7 @@ namespace MiniBlog.Controllers
             User myUser = new User
             {
                 Username = "Silver Blood",
-                Password = "1234",
+                Password = PasswordUtilities.HashPassword("12345", 10000),
                 Firstname = "Roger",
                 Familyname = "Metzger",
                 Mobilephonenumber = "088 666 88 88",
@@ -35,7 +35,7 @@ namespace MiniBlog.Controllers
             User user = new User()
             {
                 Username = "C3D1",
-                Password = "1234",
+                Password = PasswordUtilities.HashPassword("12345", 10000),
                 Firstname = "Cedric",
                 Familyname = "Schnider",
                 Mobilephonenumber = "0792233423",
