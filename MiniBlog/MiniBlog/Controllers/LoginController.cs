@@ -67,7 +67,7 @@ namespace MiniBlog.Controllers
             TokenRepository tokenRepository = new TokenRepository(db);
             if (tokenRepository.CheckToken(model.Token, model.UserId))
             {
-                return View("Index");
+                return View("../Home/Index");
             }
             ViewBag.Status = "invalid token";
             ModelState.AddModelError("Token", "Token is invalid");
