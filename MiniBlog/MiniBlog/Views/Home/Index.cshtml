@@ -8,7 +8,7 @@
             <h2>@post.Title</h2>
             <h3>@post.Description</h3>
             <p>@post.Content</p>
-            @Html.ActionLink("Details", "Index", "Post", new { postId = @post.Id }, null)
+            @Html.ActionLink("Details", "Index", "Post", new { id = @post.Id }, null)
             <footer>
                 <p>Written on <time>@post.CreatedOn</time> from @post.User.Username</p>
             </footer>
