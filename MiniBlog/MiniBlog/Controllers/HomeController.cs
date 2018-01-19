@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MiniBlog.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,24 +10,79 @@ namespace MiniBlog.Controllers
 {
     public class HomeController : Controller
     {
-        public MiniBlogContext context = new MiniBlogContext();
+        public MiniBlogContext db = new MiniBlogContext();
+
+
+        // GET: Home
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Seed()
         {
-            ViewBag.Message = "Your application description page.";
+            User myUser = new User
+            {
+                Username = "Silver Blood",
+                Password = "1234",
+                Firstname = "Roger",
+                Familyname = "Metzger",
+                Mobilephonenumber = "088 666 88 88",
+                Role = "1",
+                Status = "aktiv"
+            };
 
-            return View();
-        }
+            User user = new User()
+            {
+                Username = "C3D1",
+                Password = "1234",
+                Firstname = "Cedric",
+                Familyname = "Schnider",
+                Mobilephonenumber = "0792233423",
+                Role = "1",
+                Status = "aktiv"
+            };
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
+            Comment myComment = new Comment
+            {
+                Commet = "Das ist Kommentar",
+                CreatedOn = DateTime.Today,
+                User = myUser
+            };
 
-            return View();
+            Post publicPost = new Post()
+            {
+                Content = "Inhalt eines Post",
+                CreatedOn = DateTime.Now,
+                Description = "Die Beschreibung meines Kommentar",
+                Status = PostStatus.Public,
+                Title = "Public Post",
+                User = myUser
+
+            };
+            publicPost.Comment.Add(myComment);
+            publicPost.Comment.Add(myComment);
+            publicPost.Comment.Add(myComment);
+            Post privatePost = new Post()
+            {
+                Content = "Ein weiterer Inhalt eines Posts",
+                CreatedOn = DateTime.Now,
+                Description = "Die Beschreibung des zweiten Posts",
+                Status = PostStatus.Private,
+                Title = "Private Post",
+                User = myUser
+            };
+            privatePost.Comment.Add(myComment);
+            privatePost.Comment.Add(myComment);
+            privatePost.Comment.Add(myComment);
+
+            db.Users.Add(myUser);
+            db.Posts.Add(privatePost);
+            db.Posts.Add(publicPost);
+            db.Users.Add(user);
+            db.Comments.Add(myComment);
+            db.SaveChanges();
+            return new HttpStatusCodeResult(200);
         }
     }
 }
