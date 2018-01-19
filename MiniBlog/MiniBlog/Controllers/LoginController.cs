@@ -6,13 +6,14 @@ using System.Web;
 using System.Web.Mvc;
 using MiniBlog.Common;
 using MiniBlog.Models;
+using MiniBlog.Repository;
 using MiniBlog.ViewModels;
 
 namespace MiniBlog.Controllers
 {
     public class LoginController : Controller
     {
-        public MiniBlogContext db = new MiniBlogContext();
+        private MiniBlogContext db = new MiniBlogContext();
 
         // GET: Login
         public ActionResult Index()
@@ -25,11 +26,12 @@ namespace MiniBlog.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel model, string returnUrl)
         {
+            LoginRepository loginRepository = new LoginRepository(db);
             if (ModelState.IsValid)
             {
-                if (db.Users.Any(x => x.Username == model.Username))
+                if (loginRepository.CheckIfUserExists(model.Username))
                 {
-                    User user = db.Users.First(x => x.Username == model.Username);
+                    User user = loginRepository.GetUserByName(model.Username);
                     if (PasswordUtilities.CheckPassword(model.Password, user.Password))
                     {
                         //TODO go to token view
