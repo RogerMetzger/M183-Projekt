@@ -23,11 +23,11 @@ namespace MiniBlog.Controllers
         {
             User myUser = new User
             {
-                Username = "Silver Blood",
+                Username = "SilverBlood",
                 Password = PasswordUtilities.HashPassword("12345", 10000),
                 Firstname = "Roger",
                 Familyname = "Metzger",
-                Mobilephonenumber = "088 666 88 88",
+                Mobilephonenumber = "0774893231",
                 Role = "1",
                 Status = "aktiv"
             };

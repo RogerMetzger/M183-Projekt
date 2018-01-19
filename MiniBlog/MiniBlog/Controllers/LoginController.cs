@@ -4,9 +4,11 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.ApplicationInsights.Web;
 using MiniBlog.Common;
 using MiniBlog.Models;
 using MiniBlog.Repository;
+using MiniBlog.Services;
 using MiniBlog.ViewModels;
 
 namespace MiniBlog.Controllers
@@ -34,8 +36,18 @@ namespace MiniBlog.Controllers
                     User user = loginRepository.GetUserByName(model.Username);
                     if (PasswordUtilities.CheckPassword(model.Password, user.Password))
                     {
-                        //TODO go to token view
-                        return View();
+                        Token token = new Token
+                        {
+                            User = user,
+                            UserId = user.Id,
+                            TokenNr = new Random().Next(1, 999999),
+                            Expiry = DateTime.Now.AddMinutes(5)
+                        };
+                        TokenRepository tokenRepository = new TokenRepository(db);
+                        tokenRepository.AddToken(token);
+
+                        new MobileService().SendSMS(token.TokenNr, user.Mobilephonenumber);
+                        return View("Token", new TokenViewModel() { UserId = user.Id });
                     }
                     ModelState.AddModelError("Password", "Password wrong");
                     return View("Index", model);
@@ -47,6 +59,19 @@ namespace MiniBlog.Controllers
                 }
             }
             return View("Index", model);
+        }
+
+        [HttpPost]
+        public ActionResult TokenLogin(TokenViewModel model)
+        {
+            TokenRepository tokenRepository = new TokenRepository(db);
+            if (tokenRepository.CheckToken(model.Token, model.UserId))
+            {
+                return View("Index");
+            }
+            ViewBag.Status = "invalid token";
+            ModelState.AddModelError("Token", "Token is invalid");
+            return View("Token", model);
         }
     }
 }
