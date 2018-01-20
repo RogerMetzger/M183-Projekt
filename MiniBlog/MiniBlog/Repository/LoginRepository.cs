@@ -31,5 +31,15 @@ namespace MiniBlog.Repository
             Db.UserLogs.Add(new UserLog(action, Db.Users.FirstOrDefault(x => x.Id.Equals(userId.Value))));
             Db.SaveChanges();
         }
+
+        public void SetTokenDeleted(int tokenNr)
+        {
+            Token token = Db.Tokens.FirstOrDefault(x => x.TokenNr.Equals(tokenNr));
+            if (token != null)
+            {
+                token.DeletedOn = DateTime.Now;
+            }
+            Db.SaveChanges();
+        }
     }
 }

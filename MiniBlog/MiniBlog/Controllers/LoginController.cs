@@ -77,10 +77,10 @@ namespace MiniBlog.Controllers
                 loginRepository.Log("Login successful", model.UserId);
                 loginRepository.LogUserLogin(model.UserId,
                     Session["a_name_for_our_session_thant_cant_be_exposed"].ToString(), Request.UserHostAddress);
+                loginRepository.SetTokenDeleted(model.Token);
 
                 return View("../Home/Index", new HomeViewModel(postRepository.GetPublicPosts()));
             }
-
             loginRepository.Log("Token invalid", model.UserId);
             ViewBag.Status = "invalid token";
             ModelState.AddModelError("Token", "Token is invalid");
