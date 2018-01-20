@@ -48,16 +48,19 @@ namespace MiniBlog.Controllers
                         tokenRepository.AddToken(token);
 
                         new MobileService().SendSMS(token.TokenNr, user.Mobilephonenumber);
-                        return View("Token", new TokenViewModel() { UserId = user.Id });
+                        return View("Token", new TokenViewModel() {UserId = user.Id});
                     }
+
                     loginRepository.Log("Password wrong", user.Id);
                     ModelState.AddModelError("Password", "Password wrong");
                     return View("Index", model);
                 }
+
                 loginRepository.Log("Login failed", null);
                 ModelState.AddModelError("Username", "No User with this Username");
                 return View("Index", model);
             }
+
             return View("Index", model);
         }
 
@@ -66,14 +69,18 @@ namespace MiniBlog.Controllers
         {
             TokenRepository tokenRepository = new TokenRepository(db);
             LoginRepository loginRepository = new LoginRepository(db);
+            PostRepository postRepository = new PostRepository(db);
             if (tokenRepository.CheckToken(model.Token, model.UserId))
             {
                 Session["a_name_for_our_session_thant_cant_be_exposed"] = generateID();
 
                 loginRepository.Log("Login successful", model.UserId);
-                loginRepository.LogUserLogin(model.UserId, "", Request.UserHostAddress);
-                return View("../Home/Index");
+                loginRepository.LogUserLogin(model.UserId,
+                    Session["a_name_for_our_session_thant_cant_be_exposed"].ToString(), Request.UserHostAddress);
+
+                return View("../Home/Index", new HomeViewModel(postRepository.GetPublicPosts()));
             }
+
             loginRepository.Log("Token invalid", model.UserId);
             ViewBag.Status = "invalid token";
             ModelState.AddModelError("Token", "Token is invalid");
@@ -84,4 +91,5 @@ namespace MiniBlog.Controllers
         {
             return Guid.NewGuid().ToString("N");
         }
+    }
 }
