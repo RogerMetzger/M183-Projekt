@@ -9,6 +9,13 @@ namespace MiniBlog.Models
 {
     public class UserLogin
     {
+        public UserLogin(int userId, string sessionId, string ip)
+        {
+            UserId = userId;
+            SessionId = sessionId;
+            Ip = ip;
+        }
+
         [Key]
         public int Id { get; set; }
         public int UserId { get; set; }
